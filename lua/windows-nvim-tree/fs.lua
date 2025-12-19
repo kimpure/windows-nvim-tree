@@ -115,7 +115,7 @@ function fs.remove(node)
 	end
 
 	local function do_remove()
-		vim.fn.delete(vim.fn.node.absolute_path, "rf")
+		vim.fn.delete(node.absolute_path, "rf")
 	end
 
 	if (config and config.ui.confirm.remove) or true then
