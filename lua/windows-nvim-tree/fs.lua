@@ -1,4 +1,3 @@
-local api = require("nvim-tree.api")
 local config = require("nvim-tree").config
 local events = require("nvim-tree.events")
 local lib = require("nvim-tree.lib")
@@ -119,7 +118,7 @@ function fs.remove(node)
 		vim.fn.delete(vim.fn.node.absolute_path, "rf")
 	end
 
-	if config.ui.confirm.remove then
+	if (config and config.ui.confirm.remove) or true then
 		local prompt_select = "Remove " .. node.name .. "?"
 		local prompt_input, items_short, items_long
 
