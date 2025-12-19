@@ -22,7 +22,7 @@ function M.setup(options)
 
 	local nvim_tree_api = require("nvim-tree.api")
 
-    ---@param bufnr integer
+	---@param bufnr integer
 	local function on_attach(bufnr)
 		local function opts(desc)
 			return {
@@ -34,13 +34,13 @@ function M.setup(options)
 			}
 		end
 
-        local function create()
-		    fs.create(nvim_tree_api.tree.get_node_under_cursor())
+		local function create()
+			fs.create(nvim_tree_api.tree.get_node_under_cursor())
 		end
 
-        local function remove()
-            fs.remove(nvim_tree_api.tree.get_node_under_cursor())
-        end
+		local function remove()
+			fs.remove(nvim_tree_api.tree.get_node_under_cursor())
+		end
 
 		vim.keymap.set("n", "<C-]>", nvim_tree_api.tree.change_root_to_node, opts("CD"))
 		vim.keymap.set("n", "<C-e>", nvim_tree_api.node.open.replace_tree_buffer, opts("Open: In Place"))
@@ -102,9 +102,15 @@ function M.setup(options)
 		vim.keymap.set("n", "<2-RightMouse>", nvim_tree_api.tree.change_root_to_node, opts("CD"))
 	end
 
-    nvim_tree.config.on_attach = on_attach
+	local orig_setup = nvim_tree.setup
+    --- @diagnostic disable-next-line
+	nvim_tree.setup = function(opts)
+		opts = opts or {}
+		opts.on_attach = on_attach
+		return orig_setup(opts)
+	end
 
-    return nvim_tree
+	return nvim_tree
 end
 
 return M

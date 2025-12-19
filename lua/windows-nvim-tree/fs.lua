@@ -1,4 +1,4 @@
-local core = require("nvim-tree.core")
+local api = require("nvim-tree.api")
 local config = require("nvim-tree").config
 local events = require("nvim-tree.events")
 local lib = require("nvim-tree.lib")
@@ -34,9 +34,8 @@ local function get_num_nodes(iter)
 	return i
 end
 
---- @param node? Node
+--- @param node Node
 function fs.create(node)
-	node = node or core.get_explorer()
 	if not node then
 		return
 	end
@@ -115,7 +114,7 @@ function fs.remove(node)
 	local function do_remove()
 		vim.fn.delete(vim.fn.node.absolute_path, "rf")
 
-		local explorer = core.get_explorer()
+		local explorer = api.tree.get_explorer()
 		if not config.filesystem_watchers.enable and explorer then
 			explorer:reload_explorer()
 		end
