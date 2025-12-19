@@ -109,8 +109,6 @@ function M.setup(options)
 		opts.on_attach = on_attach
 		return orig_setup(opts)
 	end
-
-	return nvim_tree
 end
 
 return M

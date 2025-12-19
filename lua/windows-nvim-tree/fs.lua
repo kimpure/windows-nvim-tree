@@ -107,6 +107,10 @@ end
 
 --- @param node Node
 function fs.remove(node)
+    if not node or not node.absolute_path then
+        return
+    end
+
 	if node.name == ".." then
 		return
 	end
