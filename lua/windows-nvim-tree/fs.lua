@@ -122,7 +122,7 @@ function fs.remove(node)
 		local prompt_select = "Remove " .. node.name .. "?"
 		local prompt_input, items_short, items_long
 
-		if config.ui.confirm.default_yes then
+		if (config and config.ui.confirm.default_yes) or true then
 			prompt_input = prompt_select .. " Y/n: "
 			items_short = { "", "n" }
 			items_long = { "Yes", "No" }
