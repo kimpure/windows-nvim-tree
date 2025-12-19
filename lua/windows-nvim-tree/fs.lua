@@ -117,11 +117,6 @@ function fs.remove(node)
 
 	local function do_remove()
 		vim.fn.delete(vim.fn.node.absolute_path, "rf")
-
-		local explorer = api.tree.get_explorer()
-		if not config.filesystem_watchers.enable and explorer then
-			explorer:reload_explorer()
-		end
 	end
 
 	if config.ui.confirm.remove then
